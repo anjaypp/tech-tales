@@ -1,3 +1,4 @@
+// routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -12,7 +13,7 @@ router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await authModel.findOne({ username });
-        
+
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }

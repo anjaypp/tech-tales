@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv')
+const isAuthenticated = require('./middlewares/authMiddleware');
 
 //Load environment variables
 dotenv.config();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 const blogRoutes = require('./routes/blogRoutes');
 app.use('/api', blogRoutes);
+const isAuthenticated = require('./middlewares/authMiddleware');
 
 const connectDB = require('./config/db');
 connectDB();
