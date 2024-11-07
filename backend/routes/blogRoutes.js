@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
 
 // POST Operation - Create a new blog (Authenticated users only)
 router.post('/add', auth, async (req, res) => {
-    const { title, content, categories, tags, isDraft, isPremium, image } = req.body;
-    if (!title || !content) {
-        return res.status(400).json({ message: "Title and content are required" });
+    const { title, summary, content, categories, tags, isDraft, isPremium, image } = req.body;
+    if (!title || !summary || !content ) {
+        return res.status(400).json({ message: "Title, summary and content are required" });
     }
 
     try {
@@ -75,7 +75,7 @@ router.delete('/delete/:id', auth, async (req, res) => {
 });
 
 // Block or unblock a blog
-router.put('/block/id:', auth, roleCheck('admin'), async (req, res) => {
+router.put('/block/:id', auth, roleCheck('admin'), async (req, res) => {
     try {
         const blog = await blogModel.findById(req.params.id);
         if(!blog) {
