@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 require('../db/connection');
 const authModel = require('../models/userModel');
 
-router.use(express.json());
 
 // Login Route
 router.post('/login', async (req, res) => {
@@ -36,7 +35,13 @@ router.post('/login', async (req, res) => {
 // Register Route
 router.post('/register', async (req, res) => {
     try {
-        const { username, password, email } = req.body;
+        const { username, password, email, role = 'regular' } = req.body;
+
+        // Check if user already exists
+        const existingUser = await authModel.findOne({ $or: [{ username }, { email }] });
+        if(!existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
 
         // Hash password before saving
         const salt = await bcrypt.genSalt(10);
@@ -46,6 +51,7 @@ router.post('/register', async (req, res) => {
             username,
             email,
             password: hashedPassword,
+            role,
         });
 
         await newUser.save();
@@ -53,6 +59,11 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+});
+
+// Logout Route
+router.get('/logout', (req, res) => {
+    res.status(200).json({ message: 'Logout successful' });
 });
 
 module.exports = router;
