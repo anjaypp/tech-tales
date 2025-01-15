@@ -5,10 +5,27 @@ const likeModel = require("../models/likeModel");
 const commentModel = require("../models/commentModel");
 const bookmarkModel = require("../models/bookmarkModel")
 
-//Like a post
+// Get like status and count for a post
+router.get("/:id/likes", auth, async (req, res) => {
+  try {
+      const likeCount = await likeModel.countDocuments({ blogId: req.params.id });
+      const hasLiked = await likeModel.exists({ blogId: req.params.id, userId: req.user.id });
+
+      res.json({ likeCount, hasLiked });
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+});
+
+//Like a post (Authenticated users only)
 router.post("/:id/like", auth, async (req, res) => {
   try {
-    const like = new likeModel({postId: req.params.id});
+    //Check if user has already liked the post
+    const existingLike = await likeModel.findOne({blogId: req.params.id, userId: req.user.id});
+    if (existingLike) {
+      return res.status(400).json({ message: "You have already liked this post" });
+    }
+    const like = new likeModel({blogId: req.params.id, userId: req.user.id,});
     await like.save();
     res.status(201).json({ message: "Like added successfully" });
   } catch (err) {
@@ -19,7 +36,7 @@ router.post("/:id/like", auth, async (req, res) => {
 //Remove like
 router.delete("/:id/like", auth, async (req, res) => {
   try {
-    const like = await likeModel.findByIdAndDelete(req.params.id);
+    const like = await likeModel.findOneAndDelete({ blogId: req.params.id, userId: req.user.id });
     if (!like) {
       return res.status(404).send("Like not found");
     }
@@ -29,44 +46,60 @@ router.delete("/:id/like", auth, async (req, res) => {
   }
 });
 
-//Add comment
-router.post("/post/:id/comment", auth, async (req, res) => {
+// Add a comment to a post
+router.post("/:blogId/comment", auth, async (req, res) => {
   try {
-    const comment = new commentModel({postId: req.params.id, ...req.body});
-    await comment.save();
-    res.status(201).json({ message: "Comment added successfully" });
+    const newComment = new commentModel({
+      blogId: req.params.blogId,
+      userId: req.user.id,
+      content: req.body.content,
+    });
+    await newComment.save();
+    res.status(201).json({ message: "Comment added successfully", comment: newComment });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-//Remove comment
-router.delete("/:id/comment", auth, async (req, res) => {
+// Remove a comment
+router.delete("/comment/:commentId", auth, async (req, res) => {
   try {
-    const comment = await commentModel.findByIdAndDelete(req.params.id);
+    const comment = await commentModel.findById(req.params.commentId);
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
+
+    // Allow deletion only by the comment author or an admin
+    if (comment.userId.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    await comment.remove();
     res.status(200).json({ message: "Comment removed successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-//Get post comments
-router.get("/post/:id/comments" , auth, async (req,res) => {
-    try{
-        const comments = await commentModel.find({postId: req.params.id});
-        res.json(comments)
-    }
-    catch (err){
-        res.status(500).json({message: err.message});
-    }
-}) 
+// Get all comments for a post
+router.get("/:blogId/comments", async (req, res) => {
+  try {
+    const comments = await commentModel
+      .find({ blogId: req.params.blogId }).populate("userId");
+    res.json(comments);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // Bookmark a post
 router.post("/post/:id/bookmark", auth, async (req, res) => {
     try {
+      const existingBookmark = await bookmarkModel.findOne({ postId: req.params.id, userId: req.user.id})
+      if(existingBookmark) {
+        return res.status(400).json({message: "Post already bookmarked"});
+      }
+      
       const bookmark = new bookmarkModel({ postId: req.params.id, userId: req.user.id });
       await bookmark.save();
       res.status(201).json({ message: "Post bookmarked successfully" });
@@ -78,7 +111,7 @@ router.post("/post/:id/bookmark", auth, async (req, res) => {
   // Remove bookmark
 router.delete("/post/:id/bookmark", auth, async (req, res) => {
     try {
-      const bookmark = new bookmarkModel.findOneAndDelete({ postId: req.params.id, userId: req.user.id });
+      const bookmark = await bookmarkModel.findOneAndDelete({ blogId: req.params.id, userId: req.user.id });
       if (!bookmark){
         return res.status(404).json({message: "Bookmark not found"});
       }

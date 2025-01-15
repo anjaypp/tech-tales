@@ -1,0 +1,62 @@
+.dashboardContainer {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+  
+  .sidebarHeader {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sidebarNav {
+    padding: 1rem;
+  }
+  
+  .sidebarNav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebarNav li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebarNav a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .sidebarNav a:hover {
+    background-color: #e9ecef;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 2rem;
+    margin-left: 250px; /* Should match sidebar width */
+    transition: all 0.3s ease;
+  }
+  
+  /* When sidebar is closed, adjust main content margin */
+  .sidebar.closed + .mainContent {
+    margin-left: 60px;
+  }

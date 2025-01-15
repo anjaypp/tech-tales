@@ -1,0 +1,46 @@
+.searchHeader {
+    margin-bottom: 2rem;
+  }
+  
+  .searchHeader h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .blogCard {
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blogCard:hover {
+    transform: translateY(-3px);
+  }
+  
+  .blogImage {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .blogTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .blogSummary {
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .blogMeta {
+    margin: 1rem 0;
+  }
+  
+  .blogFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

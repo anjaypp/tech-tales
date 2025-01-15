@@ -1,0 +1,104 @@
+.login-container {
+  font-family: var(--ff);
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.login-form {
+  padding: 40px;
+  text-align: center;
+}
+
+.welcome-text {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.form-input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+.form{
+  border-radius: 20px;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  color: #333;
+  font-size: 14px;
+}
+
+.login-button {
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.or-continue {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  font-size: 20px;
+  color: #777;
+}
+
+.register-text {
+  font-size: 14px;
+  color: #777;
+}
+
+.register-text a {
+  color: #5cb85c;
+}
+
+.illustration-section {
+  background-color: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 430px;
+}
+
+.illustration {
+  width: 150px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-promotion-text {
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+  text-align: center;
+}

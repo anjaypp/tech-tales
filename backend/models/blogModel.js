@@ -26,11 +26,7 @@ const blogSchema = new mongoose.Schema({
   },
   isDraft: {
     type: Boolean,
-    default: true
-  },
-  isPremium: {
-    type: Boolean,
-    default: false
+    default: true,
   },
   image: {
     type: String
@@ -45,10 +41,12 @@ const blogSchema = new mongoose.Schema({
   },
   status: { 
     type: String, 
-    enum: ["active", "blocked"], 
-    default: "active" 
-}
-});
+    enum: ["pending", "active", "blocked"], 
+    default: "pending",
+    index: true 
+    }
+  }
+);
 
 const Blog = mongoose.model("Blog", blogSchema);
 

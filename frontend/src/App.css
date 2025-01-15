@@ -1,0 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+  --ff: "Montserrat", sans-serif;     /* Montserrat font family */
+  --primary-bg: #e1e3e6;        /* Light gray for primary backgrounds */
+  --card-bg: #fefefe;         /* White for card backgrounds */
+  --text-color: #333333;       /* Dark gray for primary text */
+  --secondary-text: #666666;   /* Medium gray for secondary text */
+  --button-color: #bbbec1; 
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Light shadow for subtle depth */
+  --border-color: #e0e0e0;     /* Light gray for subtle card borders */
+  --border-radius: 10px;            /* Radius for rounded corners */
+  --transition-speed: 0.3s;         /* Transition speed for smooth animations */
+}

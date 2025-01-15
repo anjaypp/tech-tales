@@ -2,31 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/authMiddleware");
 const userModel = require("../models/userModel");
-const multer = require("multer");
 
-// Multer configuration for handling file uploads
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads/profiles/');
-    },
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
-const upload = multer({ 
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5 // 5MB limit
-    },
-    fileFilter: function(req, file, cb) {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Not an image! Please upload an image.'), false);
-        }
-    }
-});
 
 // Get user profile
 router.get('/profile', auth, async (req, res) => {

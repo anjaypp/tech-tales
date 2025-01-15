@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-;
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -18,8 +17,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'regular', 'premium'],
-        default: 'regular'
+        enum: ['admin', 'user'],
+        default: 'user'
     },
     isPremium: {
         type: Boolean,

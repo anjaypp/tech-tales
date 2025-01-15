@@ -1,0 +1,82 @@
+.postContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ff);
+    margin: 3rem;
+  }
+  
+  /* Hero Section */
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    margin: 3rem;
+  }
+  
+  .authorCard {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .authorImage {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .authorName {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  
+  
+  /* Interaction Menu */
+  .interactMenu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 2rem;
+  }
+  
+  .interaction {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+  }
+  
+  .interaction:hover {
+    color: #2563eb;
+  }
+  
+  .interactionActive {
+    color: #2563eb;
+  }
+/* Increase the width of the blog content container */
+.blogcontent {
+    width: 100%;     
+    margin: 0 auto;      
+    padding: 20px;       
+    max-width: 1200px;   
+  }
+  
+  /* Style for images inside the content */
+  .blogcontent img {
+    max-width: 100%;     
+    height: auto;        
+    display: block;      
+    margin: 0 auto;     
+    border-radius: 8px;  
+  }
+  
+  
